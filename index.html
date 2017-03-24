@@ -1,0 +1,200 @@
+<!doctype html>
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Osamc 3/2017 - Sid</title>
+
+    <meta name="description" content="small presentation held at open source audio and music meeting cologne about the c64 sound chip aka SID aka MOS 6581" />
+    <meta name="author" content="zliw" />
+    <link href="sid.css" rel="stylesheet" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress">
+    <div class="step slide" class="step slide" data-x="-7000" data-y="0">
+        <q>SID - C64 sound chip</q>
+        <p>OSAMC 3/2017</p>
+    </div>
+
+    <div class="step slide" data-x="-6000" data-y="0">
+      <h1>What is it?</h1>
+      <br/>
+      <ul>
+        <li> 3 channel digital controlled synth in a single chip
+        <li> One chip in each C64 (1982)
+        <li> 10 - 17 million units sold
+        <li> used heavily for games, intros, demos
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="-5000" data-y="0">
+      <h1>How does it sound?</h1>
+      <br/>
+      <ul>
+        <li>Because Nils doesn't like theoretical talks
+        <li>Youtube link:<a href="https://www.youtube.com/watch?v=Bxqzezn6lc0">Katakis soundtrack</a> (originally shown with jsSID)
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="-4000" data-y="0">
+      <h1>Features</h1>
+      <br/>
+      <ul>
+        <li> 4 Waveforms types: Triangle, Sawtooth, Square, Noise
+        <li> a ADSR waveform envelope generator for each channel
+        <li> 1 filter for all channels
+        <li> Ring modulation of channels possible
+        <li> playing 4 bit samples is possible through tricks but cpu-time-consuming
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="-3000" data-y="0">
+      <h1>Hardware</h1>
+      <br/>
+      <ul>
+        <li> Multiple Revisions MOS 6581/6582/8580
+        <li> First version sound different due to different filter design
+        <li> Designed by Robert Yannes, who later build the Ensoniq SQ1
+      </ul>
+      <img src="6581.png">
+    </div>
+
+    <div class="step slide" data-x="-2000" data-y="0">
+      <!-- see http://www.waitingforfriday.com/?p=661#6581_Pin_Configuration -->
+      <h1>Registers</h1>
+      <br/>
+      <ul>
+        <li> 29 8bit registers
+        <li> 7 registers per voice: frequency, pulse width, control, ADSR
+        <li> 4 global registers: filter cutoff, resonance, filter mode, volume
+        <li> Read-only registers for A/D conversion
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="-1000" data-y="0">
+      <h1>Block diagram</h1>
+      <!-- from http://www.deblauweschicht.nl/tinkering/images/SID_diagrams.png -->
+      <br/>
+      <img src="block-diagram.png" width=75% style="margin-left:12%">
+    </div>
+
+    <div class="step slide" data-x="0" data-y="0">
+      <h1>Composing restrictions</h1>
+      <br/>
+      <ul>
+        <li> 3 channels
+        <li> Memory
+        <li> register control time to set the registers - depending on context as low as 63 cpu cycles (one raster line)
+        <li> Tooling requires technical knowledge (eg. hex numbers, layout and function of SID registers)
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="1000" data-y="0">
+      <h1>3 channels?</h1>
+      <br/>
+      <ul>
+        <li>Youtube link:<a href="https://www.youtube.com/watch?v=wtsxNhhzeMw">Last Ninja 2: Central park rendered as oscilloscope</a>
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="2000" data-y="0">
+      <h1>Free software for composing</h1>
+      <br/>
+      <ul>
+        <li> most editors have a tracker style interface
+        <li> <a href="http://hermit.sidrip.com/">SIDRip</a> - a C64 SID-Editor - usable on emulators
+        <li> <a href="http://theyamo.kapsi.fi/ccutter/">Cheesecutter</a> - multi platform GPL editor
+        <li> <a href="https://sourceforge.net/projects/goattracker2/">GoatTracker</a> - another multiplatform GPL editor. newer versions can handle midi input.
+        <li> + lots of native editors with various licenses
+        <li> demo time (in the talk we did a small dive into goattracker, basically following this tutorial to produce modulated square wave as shown in : <a href="https://www.scribd.com/document/51032059/Goat-Tracker-Tutorial">this tutorial</a>)
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="3000" data-y="0">
+      <h1>Sound collections</h1>
+      <br/>
+      <ul>
+        <li><a href="http://hvsc.c64.org/">High Voltage Sid Collection: </a>
+        <li>Current version: 94.4 MB, 48943 PSID files
+        <li>Song files between 1kb and 60kb (if using samples)
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="4000" data-y="0">
+      <h1>Players</h1>
+      <br>
+      <ul>
+        <li> <a href="http://sidplay2.sourceforge.net/">libsidplay + sidplay2</a> Library + player for psid files
+        <li> <a href="http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html">resid library for accurate emulation of various sid models and realtime support</a>
+        <li> <a href="http://sidplayer.cebix.net/">sidplayer</a>
+        <li> <a href="https://github.com/hermitsoft/jsSID"> Javascript implementation of a player</a>
+        <li> + lots of commercial and shareware options (playsid started as dos shareware). There is even an app for that - look in your favourite app store.
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="5000" data-y="0">
+      <h1>Remixes</h1>
+      <br>
+      <ul>
+        <li><a href="http://remix.kwed.org/">remix.kwed.org/</a> - largest and still active remixing community 
+        <li>Youtube - lots of SID-related content
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="6000" data-y="0">
+    <h1>Ongoing DIY efforts</h1>
+    <br/>
+    <ul>
+      <li> http://www.ucapps.de/midibox_sid.html<br>
+        <img src="midibox.jpg" width="30%" style="margin-left: 35%">
+      <li> http://www.keytarcentral.com/2012/09/commodore-64-keytar/#more-12204
+        <img src="keytar.jpg" width="40%" style="margin-left: 30%">
+    </ul>
+    </div>
+
+    <div class="step slide" data-x="7000" data-y="0">
+    <h1>Ongoing DIY efforts</h1>
+    <br/>
+    <ul>
+      <li>lots of projects to provide two SIDs for stereo modes
+      <li>+ deprecated projects for interfacing to isa/pci
+      <li>Problem: sound chips are getting rare and get destroyed quickly, because of CMOS technology
+      <li>Therefore projects to provide pin compatible replacements using ATMega/Arduino/etc
+    </ul>
+    </div>
+
+    <div class="step slide" data-x="8000" data-y="0">
+    <h1>Commercial hardware</h1>
+    <br/>
+      <ul>
+        <li><a href="http://mssiah.com">MSSIAH</a> - Cartridge to turn your c64 into a midi synth
+        <li> Elektron Sidstation - honorable mention, because it was the first instrument sold to mainstream musicians
+      </ul>
+      <img src="sidstation.png">
+    </div>
+<!-- untested stuff: http://gp2x.org/remid/ -->
+
+    <div class="step slide" data-x="9000" data-y="0">
+    <h1>Bonus</h1>
+    <br/>
+      <ul>
+        <li>Youtube link:<a href="https://www.youtube.com/watch?v=z8kyhQC5XL8"> Oscilloscope view of Arkanoid: 4th voice using the broken volume register for FX and drums</a>
+      </ul>
+    </div>
+
+    <script src="impress.js"></script>
+    <script>
+      impress().init();
+    </script
+</body>
+</html>
